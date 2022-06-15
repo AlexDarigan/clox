@@ -48,10 +48,11 @@ static bool match(char expected) {
 	if(*scanner.current != expected) { return false; }
 	scanner.current++;
 	return true;
+}
 
 static Token makeToken(TokenType type) {
 	Token token;
-	toke.type = type;
+	token.type = type;
 	token.start = scanner.start;
 	token.length = (int) (scanner.current - scanner.start);
 	token.line = scanner.line;
@@ -64,7 +65,7 @@ static Token errorToken(const char* message) {
 	token.start = message;
 	token.length = (int) strlen(message);
 	token.line = scanner.line;
-	return token
+	return token;
 }
 
 static void skipWhitespace() {
@@ -152,13 +153,13 @@ static Token number() {
 
 static Token string() {
 		while(peek() != '"' && !isAtEnd()) {
-				if(peek() == '\n') { scanner.line++ }
+				if(peek() == '\n') { scanner.line++; }
 				advance();
 			}
 		if(isAtEnd()) { return errorToken("Unterminated string."); }
 		advance();
 		return makeToken(TOKEN_STRING);
-
+}
 
 Token scanToken() {
 	skipWhitespace();
