@@ -80,6 +80,7 @@ static void skipWhitespace() {
 				case '\n':
 					scanner.line++;
 					advance();
+					break;
 				case '/':
 					if(peekNext() == '/') {
 							// A comment goes until the end of the line
@@ -188,5 +189,5 @@ Token scanToken() {
 		case '"': return string();
 	}
 
-	return errorToken("Unexpected character.");
+	return errorToken("Unexpected character");
 }
