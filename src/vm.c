@@ -71,7 +71,7 @@ static InterpretResult run() {
 
 #define READ_BYTE() (*frame->ip++)
 #define READ_CONSTANT() (frame->function->chunk.constants.values[READ_BYTE()])
-#define READ_SHORT() (frame->ip += 2, (uint16_t) (frame->ip[-2] << 8 | frame->ip[-1]))
+#define READ_SHORT() (frame->ip += 2, (uint16_t) ((frame->ip[-2] << 8) | frame->ip[-1]))
 #define READ_STRING()	AS_STRING(READ_CONSTANT())
 #define BINARY_OP(valueType, op) \
 	do { \
@@ -215,6 +215,9 @@ static InterpretResult run() {
 			case OP_RETURN: {
 				return INTERPRET_OK; 
 			}
+			default:
+				printf("unknown instruction");
+				break;
 		}
 	}
 #undef READ_BYTE
@@ -225,9 +228,11 @@ static InterpretResult run() {
 }
 
 InterpretResult interpret(const char* source) {
-
 	ObjFunction* function = compile(source);
-	if(function == NULL) { return INTERPRET_COMPILE_ERROR; }
+	if(function == NULL) {
+		printf("\nCompiler Error\n");
+		return INTERPRET_COMPILE_ERROR;
+	}
 
 	push(OBJ_VAL(function));
 	CallFrame* frame = &vm.frames[vm.frameCount++];

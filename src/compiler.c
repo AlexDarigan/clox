@@ -705,5 +705,5 @@ ObjFunction* compile(const char* source) {
 		declaration();
 	}
 	ObjFunction* function = endCompiler();
-	return !parser.hadError ? NULL: function;
+	return parser.hadError ? NULL: function;
 }
