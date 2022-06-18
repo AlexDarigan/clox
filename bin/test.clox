@@ -2,7 +2,7 @@ var a = 2;
 print a;
 {
 	print a;
-	var a = a;
+	var a = 0;
 	print a;
 }
 print a;
