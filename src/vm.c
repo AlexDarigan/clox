@@ -218,7 +218,7 @@ static InterpretResult run() {
 		}
 	}
 #undef READ_BYTE
-#undef READ_SHORTGHBNJ
+#undef READ_SHORT
 #undef READ_CONSTANT
 #undef READ_STRING
 #undef BINARY_OP
