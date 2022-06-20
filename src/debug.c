@@ -56,7 +56,7 @@ int disassembleInstruction(Chunk* chunk, int offset) {
 			return simpleInstruction("OP_FALSE", offset);
 		case OP_POP:
 			return simpleInstruction("OP_POP", offset);
-		case OP_GET_LOCAL:	
+		case OP_GET_LOCAL:
 			return byteInstruction("OP_GET_LOCAL", chunk, offset);
 		case OP_SET_LOCAL:
 			return byteInstruction("OP_SET_LOCAL", chunk, offset);
@@ -109,11 +109,13 @@ int disassembleInstruction(Chunk* chunk, int offset) {
 			for(int j = 0; j < function->upvalueCount; j++) {
 				int isLocal = chunk->code[offset++];
 				int index = chunk->code[offset++];
-				printf("%04 d	|		%s %d\n",
+				printf("%04d	|		%s %d\n",
 						offset - 2, isLocal ? "local": "upvalue", index);
 			}
 
 			return offset;
+		case OP_CLOSE_UPVALUE:
+			return simpleInstruction("OP_CLOSE_UPVALUE", offset);
 		case OP_RETURN:
 			return simpleInstruction("OP_RETURN", offset);
 		default:
