@@ -176,6 +176,7 @@ static void markRoots() {
 	}
 
 	markCompilerRoots();
+	markObject((Obj*) vm.initString);
 }
 
 static void traceReferences() {
